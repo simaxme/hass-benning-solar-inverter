@@ -23,7 +23,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
     available_entries = benning_config["available_entries"]
 
-
     client = BenningClient(hass, benning_config["host"], benning_config["username"], benning_config["password"])
 
     oids: list[int] = []
@@ -36,7 +35,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
     for bentry in available_entries:
         id = "benning_" + str(bentry["oid"]) + "_".join(str(bentry["label"]).split("."))
-        entity = BenningEntity(hass, coordinator, client, id, bentry["uitext"], bentry["unit"], bentry["oid"])
+        entity = BenningEntity(hass, entry, coordinator, client, id, bentry["uitext"], bentry["unit"], bentry["oid"])
         result_entities.append(entity)
 
     async_add_entities(result_entities)

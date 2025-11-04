@@ -31,7 +31,6 @@ class BenningCoordinator(DataUpdateCoordinator):
         self.oids = oids
 
     async def _async_update_data(self):
-
         available_entries = await self.client.get_entries(self.oids)
         mapping = {}
         for entry in available_entries:

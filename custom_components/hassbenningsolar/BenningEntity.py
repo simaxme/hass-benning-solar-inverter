@@ -1,6 +1,7 @@
 from functools import cached_property
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity import Entity
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity, DataUpdateCoordinator
@@ -13,18 +14,20 @@ class BenningEntity(SensorEntity, CoordinatorEntity):
     hass: HomeAssistant
     coordinator: DataUpdateCoordinator
     benning_client: BenningClient
+    entry: ConfigEntry
     _unique_id: str
     _name: str
     _unit: str
     _oid: int
 
-    def __init__(self, hass: HomeAssistant, coordinator: DataUpdateCoordinator, benning_client: BenningClient, id: str, name: str, unit: str, oid: int):
+    def __init__(self, hass: HomeAssistant, entry: ConfigEntry, coordinator: DataUpdateCoordinator, benning_client: BenningClient, id: str, name: str, unit: str, oid: int):
         SensorEntity.__init__(self)
         CoordinatorEntity.__init__(self, coordinator)
 
         self.hass = hass
         self.benning_client = benning_client
         self.coordinator = coordinator
+        self.entry = entry
         self._unique_id = id
         self._name = name
         self._unit = unit
@@ -45,6 +48,16 @@ class BenningEntity(SensorEntity, CoordinatorEntity):
     @cached_property
     def native_unit_of_measurement(self):
         return self._unit
+
+    @cached_property
+    def device_info(self) -> DeviceInfo:
+        return DeviceInfo(
+            identifiers={
+                (DOMAIN, self.entry.entry_id)
+            },
+            name="Benning Solar Inverter",
+            manufacturer="Benning Solar"
+        )
 
     @callback
     def _handle_coordinator_update(self) -> None:
