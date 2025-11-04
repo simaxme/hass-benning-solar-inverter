@@ -4,8 +4,8 @@ from homeassistant.config_entries import ConfigEntry
 import homeassistant.helpers.aiohttp_client as aiohttp_client
 from homeassistant.core import HomeAssistant
 
-from custom_components.hassbenningsolar.exceptions.cannot_connect import CannotConnect
-from custom_components.hassbenningsolar.exceptions.entry_not_available import EntryNotAvailable
+from .exceptions.cannot_connect import CannotConnect
+from .exceptions.entry_not_available import EntryNotAvailable
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 import json

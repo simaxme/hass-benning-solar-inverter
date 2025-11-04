@@ -3,7 +3,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .BenningEntity import BenningEntity
+from .benning_entity import BenningEntity
 
 from .benning_client import BenningClient
 import logging

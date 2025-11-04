@@ -1,6 +1,6 @@
 {
-  "domain": "hassbenningsolar",
-  "name": "HASS Benning Solar Inverter Integration",
+  "domain": "benningsolar",
+  "name": "Benning Solar Inverter",
   "codeowners": [
     "@simaxme"
   ],

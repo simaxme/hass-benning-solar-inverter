@@ -2,8 +2,8 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 
-from custom_components.hassbenningsolar.BenningEntity import BenningEntity
-from custom_components.hassbenningsolar.benning_client import BenningClient
+from .benning_entity import BenningEntity
+from .benning_client import BenningClient
 
 from homeassistant.helpers.storage import Store
 

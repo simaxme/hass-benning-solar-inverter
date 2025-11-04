@@ -7,9 +7,6 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 
 
-from .benning_client import BenningClient
-from .BenningEntity import BenningEntity
-
 # TODO List the platforms that you want to support.
 # For your initial PR, limit it to 1 platform.
 # _PLATFORMS: list[Platform] = [Platform.]
