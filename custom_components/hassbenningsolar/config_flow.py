@@ -8,9 +8,13 @@ from typing import Any
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
-from homeassistant.const import CONF_HOST
+from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import HomeAssistantError
+
+from .exceptions.cannot_connect import CannotConnect
+from .exceptions.invalid_auth import InvalidAuth
+
+from .benning_client import BenningClient
 
 from .const import DOMAIN
 
@@ -20,23 +24,10 @@ _LOGGER = logging.getLogger(__name__)
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_HOST): str,
+        vol.Required(CONF_USERNAME): str,
+        vol.Required(CONF_PASSWORD): str,
     }
 )
-
-
-class PlaceholderHub:
-    """Placeholder class to make tests pass.
-
-    TODO Remove this placeholder class and replace with things from your PyPI package.
-    """
-
-    def __init__(self, host: str) -> None:
-        """Initialize."""
-        self.host = host
-
-    async def authenticate(self, username: str, password: str) -> bool:
-        """Test if we can authenticate with the host."""
-        return True
 
 
 async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
@@ -52,10 +43,9 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     #     your_validate_func, data[CONF_USERNAME], data[CONF_PASSWORD]
     # )
 
-    hub = PlaceholderHub(data[CONF_HOST])
+    hub = BenningClient(hass, data[CONF_HOST], data[CONF_USERNAME], data[CONF_PASSWORD])
 
-    if not await hub.authenticate(data[CONF_USERNAME], data[CONF_PASSWORD]):
-        raise InvalidAuth
+    await hub.authenticate()
 
     # If you cannot connect:
     # throw CannotConnect
@@ -63,7 +53,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     # InvalidAuth
 
     # Return info that you want to store in the config entry.
-    return {"title": "Name of the device"}
+    return {"title": "Benning Inverter"}
 
 
 class ConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -94,9 +84,5 @@ class ConfigFlow(ConfigFlow, domain=DOMAIN):
         )
 
 
-class CannotConnect(HomeAssistantError):
-    """Error to indicate we cannot connect."""
 
 
-class InvalidAuth(HomeAssistantError):
-    """Error to indicate there is invalid auth."""
