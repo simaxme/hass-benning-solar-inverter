@@ -34,7 +34,7 @@ There, you will need to input the following values:
 - `Username`: The username of your admin account. Typically `admin`.
 - `Password`: The password of your admin account. Typically `benning`.
 
-After clicking on `Ok`, it may **take multiple minutes** till the integration has finished setting up. **This is expected behavior**, because the API does not provide a list of all available endpoints. The integration simply checks for huge range of numbers, whether there is an endpoint existing or not. 
+After clicking on `Ok`, it may **take multiple minutes** till the integration has finished setting up. **This is expected behavior**, because the API does not provide a list of all available endpoints. The integration simply checks for a huge range of numbers, whether there is an endpoint existing or not. 
 Note this will be only done on setup, so don't worry that the integration takes that long at first.
 
 ## Compatibility
