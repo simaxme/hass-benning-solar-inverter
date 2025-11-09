@@ -2,7 +2,7 @@
 
 ![](./logo/benningimage.svg)
 
-This is accessing Benning Solar Inverters. This will use the internal Web-API of the Inverters to extract information from the inverter, such as details about current power usage etc.
+The Benning Solar Inverter Home Assistant integration is an integration that allows you to access all available statistics from Benning Solar Inverter TLS Series and make them available in HASS. It is running purely locally by accessing the local API of the inverter.
 
 ## Installation
 
